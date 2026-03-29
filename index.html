@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naan N Curry — Authentic Pakistani &amp; North Indian Cuisine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #FFFFFF;
+            --bg-alt: #F7F7F5;
+            --surface: #EFEFED;
+            --dark: #2A2A2A;
+            --charcoal: #3A3A3A;
+            --text: #2A2A2A;
+            --text-muted: #7A7A7A;
+            --text-light: #A0A0A0;
+            --border: rgba(0,0,0,.07);
+            --brand: 'Baloo 2', cursive;
+            --serif: 'DM Serif Display', serif;
+            --sans: 'DM Sans', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--sans); color: var(--text); background: var(--bg); overflow-x: hidden; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 0 3rem; height: 72px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--bg); border-bottom: 1px solid var(--border);
+            transition: box-shadow .3s;
+        }
+        nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,.06); }
+        .nav-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+        .nav-brand img { height: 48px; width: auto; }
+        .nav-brand-text { font-family: var(--sans); font-size: .65rem; color: var(--text-muted); line-height: 1; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500; }
+        .nav-links { display: flex; align-items: center; gap: 2.25rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none;
+            font-size: .8rem; font-weight: 400; letter-spacing: 1px;
+            text-transform: uppercase; transition: color .3s;
+        }
+        .nav-links a:hover { color: var(--dark); }
+        .nav-order {
+            padding: .55rem 1.6rem; border: 1px solid var(--dark);
+            border-radius: 6px; color: var(--dark) !important; font-weight: 500 !important;
+            transition: all .3s !important;
+        }
+        .nav-order:hover { background: var(--dark); color: var(--bg) !important; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
+        .nav-toggle span { width: 22px; height: 1.5px; background: var(--dark); }
+
+        /* HERO */
+        .hero {
+            background: var(--bg); padding: 72px 3rem 0; position: relative;
+        }
+        .hero-inner {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center;
+            max-width: 1300px; width: 100%; margin: 0 auto; padding: 5rem 0 6rem;
+        }
+        .hero-content { position: relative; }
+        .hero-tagline {
+            font-size: .75rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--text-light); margin-bottom: 1.5rem; font-weight: 500;
+        }
+        .hero h1 {
+            font-family: var(--serif); font-size: clamp(3rem, 5.5vw, 4.5rem);
+            color: var(--dark); line-height: 1.08; margin-bottom: 1.5rem;
+        }
+        .hero-desc {
+            font-size: 1.05rem; color: var(--text-muted);
+            line-height: 1.75; max-width: 440px; margin-bottom: 2.5rem; font-weight: 300;
+        }
+        .hero-buttons { display: flex; gap: 1rem; }
+        .btn {
+            display: inline-flex; align-items: center; gap: .4rem;
+            padding: .85rem 2rem; text-decoration: none; font-size: .8rem;
+            font-weight: 500; letter-spacing: .5px; text-transform: uppercase;
+            transition: all .3s; border-radius: 6px;
+        }
+        .btn-dark { background: var(--dark); color: var(--bg); }
+        .btn-dark:hover { background: var(--charcoal); transform: translateY(-2px); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--dark); color: var(--dark); }
+
+        .hero-img {
+            width: 100%; aspect-ratio: 3/4; border-radius: 16px;
+            overflow: hidden; position: relative;
+            background: url('home1.jpg') center/cover no-repeat;
+        }
+
+        /* SECTION UTILS */
+        section { padding: 6rem 3rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .eyebrow { font-size: .7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-light); font-weight: 500; margin-bottom: .75rem; }
+        .section-heading { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.15; margin-bottom: 1.25rem; }
+        .section-text { font-size: .95rem; color: var(--text-muted); line-height: 1.75; max-width: 540px; font-weight: 300; }
+        .divider { width: 48px; height: 2px; background: var(--surface); margin: 2.5rem 0; }
+
+        /* STORY */
+        .story { background: #EAEAE7; border-top: 1px solid var(--border); }
+        .story-grid { display: grid; grid-template-columns: 5fr 6fr; gap: 6rem; align-items: center; }
+        .story-pull {
+            font-family: var(--serif); font-size: 1.4rem; font-style: italic;
+            line-height: 1.5; color: var(--charcoal); margin-bottom: 2rem;
+            border-left: 3px solid var(--surface); padding-left: 1.5rem;
+        }
+        .story-stats {
+            display: flex; gap: 3.5rem; margin-top: 3rem;
+            padding-top: 2rem; border-top: 1px solid var(--border);
+        }
+        .stat h3 { font-family: var(--serif); font-size: 2.5rem; color: var(--dark); line-height: 1; }
+        .stat p { font-size: .7rem; color: var(--text-light); letter-spacing: 1.5px; text-transform: uppercase; margin-top: .35rem; }
+
+        /* LOCATIONS */
+        .locations { background: var(--bg); border-top: 1px solid var(--border); }
+        .locations-header { margin-bottom: 4rem; }
+        .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        .loc-card {
+            border: 1px solid var(--border); border-radius: 12px;
+            overflow: hidden; transition: box-shadow .3s, transform .3s;
+            background: var(--bg);
+        }
+        .loc-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,.06); }
+        .loc-card-body { padding: 2rem 2rem 2.25rem; }
+        .loc-card-body h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: .25rem; font-weight: 400; }
+        .loc-type {
+            font-size: .7rem; letter-spacing: 1px; text-transform: uppercase;
+            color: var(--text-light); margin-bottom: 1rem; font-weight: 400;
+        }
+        .loc-address { font-size: .85rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.5; font-weight: 300; }
+        .loc-meta {
+            display: flex; gap: 2rem; margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);
+        }
+        .loc-meta div { font-size: .8rem; color: var(--text-muted); }
+        .loc-meta strong { display: block; font-size: .6rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); font-weight: 500; margin-bottom: .2rem; }
+        .loc-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+        .loc-link {
+            display: inline-flex; align-items: center; gap: .4rem;
+            font-size: .75rem; font-weight: 500; letter-spacing: .5px;
+            text-transform: uppercase; color: var(--text); text-decoration: none;
+            padding: .5rem 1.2rem; border: 1px solid var(--border); border-radius: 6px;
+            transition: all .25s;
+        }
+        .loc-link:hover { border-color: var(--dark); background: var(--dark); color: var(--bg); }
+        .loc-link.primary { background: var(--dark); color: var(--bg); border-color: var(--dark); }
+        .loc-link.primary:hover { background: var(--charcoal); }
+
+        /* RESERVATION */
+        .reservation {
+            background: var(--bg-alt); border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .reservation h2 {
+            font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.4rem);
+            margin-bottom: .75rem;
+        }
+        .reservation p { color: var(--text-muted); font-weight: 300; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+        /* PRESS */
+        .press { background: var(--bg); border-top: 1px solid var(--border); }
+        .press-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .press-card {
+            padding: 2rem; border: 1px solid var(--border); border-radius: 10px;
+            text-decoration: none; color: var(--text); display: flex; flex-direction: column; gap: .75rem;
+            transition: all .25s;
+        }
+        .press-card:hover { border-color: var(--dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.05); }
+        .press-source { font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); font-weight: 500; }
+        .press-card h4 { font-family: var(--serif); font-size: 1.1rem; line-height: 1.4; font-weight: 400; }
+        .press-link { font-size: .75rem; color: var(--text-muted); font-weight: 500; letter-spacing: .5px; text-transform: uppercase; margin-top: auto; }
+
+        /* CTA */
+        .cta { background: var(--dark); text-align: center; }
+        .cta h2 { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 2.8rem); margin-bottom: .75rem; color: var(--bg); }
+        .cta p { color: rgba(255,255,255,.45); font-weight: 300; margin-bottom: 2.5rem; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-white { background: var(--bg); color: var(--dark); }
+        .btn-white:hover { background: var(--bg-alt); transform: translateY(-2px); }
+        .btn-ghost-light { border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.6); }
+        .btn-ghost-light:hover { border-color: rgba(255,255,255,.4); color: var(--bg); }
+
+        /* FOOTER */
+        footer { background: #F2F2F0; color: var(--text); padding: 4.5rem 3rem 2rem; }
+        .footer-top { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3.5rem; }
+        .footer-brand-block .nav-brand { display: inline-flex; margin-bottom: 1.25rem; }
+        .footer-brand-block .nav-brand-text { color: var(--dark); }
+        .footer-brand-block p { font-size: .85rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; max-width: 280px; }
+        .footer-col h5 { font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 1.25rem; font-weight: 500; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: .6rem; }
+        .footer-col a { color: var(--text-muted); text-decoration: none; font-size: .85rem; font-weight: 300; transition: color .3s; }
+        .footer-col a:hover { color: var(--dark); }
+        .social-icons { display: flex; gap: 1rem; margin-top: .25rem; }
+        .social-icons a { color: var(--text-muted); transition: color .3s; }
+        .social-icons a:hover { color: var(--dark); }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: .7rem; color: var(--text-light); }
+
+        /* ANIMATIONS */
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            nav { padding: 0 1.5rem; }
+            section { padding: 5rem 1.5rem; }
+            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 1.5rem; gap: 1.25rem; border-top: 1px solid var(--border); }
+            .hero { padding: 72px 1.5rem 0; }
+            .hero-inner { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 0 4rem; }
+            .hero-img { aspect-ratio: 16/9; max-height: 360px; }
+            .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .loc-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+            .locations-header { margin-bottom: 3rem; }
+            .press-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.4rem; }
+            .hero-buttons { flex-direction: column; }
+            .story-stats { gap: 2rem; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-top { grid-template-columns: 1fr; }
+            footer { padding: 3rem 1.5rem 1.5rem; }
+            .loc-actions { flex-direction: column; }
+            .press-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+    <a href="index.html" class="nav-brand">
+        <img src="https://img1.wsimg.com/isteam/ip/381b31b3-6bc2-4d08-af6a-0be9b6abf117/Naan-n-Curry_1e.jpg/:/rs=h:200,cg:true,m/qt=q:95" alt="Naan N Curry">
+        <span class="nav-brand-text">Seattle</span>
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#locations" class="nav-order">Order Now</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-content">
+            <div class="hero-tagline">Est. 2005 &nbsp;·&nbsp; Renton &amp; Issaquah, WA</div>
+            <h1>Inspired by heritage, served with love</h1>
+            <p class="hero-desc">Halal Pakistani and North Indian cuisine made from recipes perfected with time and experience. Two locations in the 425, one standard of hospitality.</p>
+            <div class="hero-buttons">
+                <a href="#locations" class="btn btn-dark">Our Locations</a>
+                <a href="#reservation" class="btn btn-outline">Reserve a Table</a>
+            </div>
+        </div>
+        <div class="hero-img fade-up"></div>
+    </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+    <div class="container">
+        <div class="story-grid">
+            <div class="fade-up" style="aspect-ratio:4/5; border-radius:12px; overflow:hidden; background: url('home2.jpg') center/cover no-repeat;"></div>
+            <div class="fade-up">
+                <div class="eyebrow">Our Story</div>
+                <h2 class="section-heading">Withstanding the test of time by offering authenticity, consistency, and reliability</h2>
+                <div class="divider"></div>
+                <p class="story-pull">"This is not just a business, but our livelihood. We stand at the intersection of hospitality, culture, and community."</p>
+                <p class="section-text">In 2005, Naan N Curry opened its doors in Renton with one goal: to serve authentic Halal Pakistani and North Indian food rooted in family recipes.</p>
+                <p class="section-text" style="margin-top: 1rem;">Two decades and two locations later, that purpose remains unchanged. As our family has grown, so has our business, shaped by a team and a community that have embraced us every step of the way.</p>
+                <p class="section-text" style="margin-top: 1rem;">That same sense of responsibility led to the creation of <a href="https://tspf.org" target="_blank" style="color: var(--text); font-weight: 500; border-bottom: 1px solid var(--text-muted); text-decoration: none; transition: border-color .3s;">The Shared Plate</a>, a way for us to give back by fighting child food insecurity and caring for the communities that have cared for us.</p>
+                <div class="story-stats">
+                    <div class="stat"><h3>20+</h3><p>Years serving</p></div>
+                    <div class="stat"><h3>2</h3><p>Locations</p></div>
+                    <div class="stat"><h3>1</h3><p>Community</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LOCATIONS -->
+<section class="locations" id="locations">
+    <div class="container">
+        <div class="locations-header">
+            <div class="eyebrow">Locations</div>
+            <h2 class="section-heading">Break bread with us</h2>
+            <p class="section-text">Two neighborhoods, same family recipes, same warm welcome.</p>
+        </div>
+        <div class="loc-grid">
+            <!-- RENTON -->
+            <div class="loc-card fade-up">
+                <div class="loc-card-body">
+                    <h3>Renton</h3>
+                    <div class="loc-type">Takeout · Delivery · Catering</div>
+                    <p class="loc-address"><a href="https://maps.google.com/?q=709+South+3rd+Street+Renton+WA+98057" target="_blank" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color .3s;">709 South 3rd Street, Renton, WA 98057</a></p>
+                    <div class="loc-meta">
+                        <div><strong>Hours</strong>Mon: Closed<br>Tue–Thu: 11:00 AM–7:30 PM<br>Fri–Sat: 11:00 AM–8:30 PM<br>Sun: 11:00 AM–7:30 PM</div>
+                        <div><strong>Phone</strong><a href="tel:4252716226" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border);">425-271-6226</a></div>
+                        <div><strong>Since</strong>2005</div>
+                    </div>
+                    <div class="loc-actions">
+                        <a href="renton.html" class="loc-link primary">View Location</a>
+                        <a href="https://oftendining.com/#s:search.php,menu.php?store_id=1214&view=" class="loc-link" target="_blank">Order Takeout</a>
+                    </div>
+                </div>
+            </div>
+            <!-- ISSAQUAH -->
+            <div class="loc-card fade-up">
+                <div class="loc-card-body">
+                    <h3>Issaquah</h3>
+                    <div class="loc-type">Dine-in · Takeout · Delivery · Catering</div>
+                    <p class="loc-address"><a href="https://maps.google.com/?q=1420+NW+Gilman+Blvd+Issaquah+WA+98027" target="_blank" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color .3s;">1420 NW Gilman Blvd, Issaquah, WA 98027</a></p>
+                    <div class="loc-meta">
+                        <div><strong>Hours</strong>Mon: 4:00–9:00 PM<br>Tue–Fri: 11:00 AM–9:00 PM<br>Sat: 11:30 AM–9:00 PM<br>Sun: 11:30 AM–8:00 PM</div>
+                        <div><strong>Phone</strong><a href="tel:4253924725" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border);">425-392-4725</a></div>
+                        <div><strong>Since</strong>2016</div>
+                    </div>
+                    <div class="loc-actions">
+                        <a href="issaquah.html" class="loc-link primary">View Location</a>
+                        <a href="https://oftendining.com/#s:search.php,menu.php?store_id=7246" class="loc-link" target="_blank">Order Takeout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RESERVATION (Issaquah via OpenTable) -->
+<section class="reservation" id="reservation">
+    <div class="container">
+        <div class="eyebrow">Reservations</div>
+        <h2>Reserve a table in Issaquah</h2>
+        <p>Book your table at our Issaquah dine-in location through OpenTable.</p>
+        <a href="https://www.opentable.com/booking/restref/availability?lang=en-US&correlationId=2fc8f7e7-d711-4e58-b69f-0a631b9ecfa7&restRef=1282507&otSource=Restaurant%20website" class="btn btn-dark" target="_blank">Reserve on OpenTable →</a>
+    </div>
+</section>
+
+<!-- PRESS -->
+<section class="press" id="press">
+    <div class="container">
+        <div class="eyebrow">In the Press</div>
+        <h2 class="section-heading">What people are saying</h2>
+        <div class="press-grid">
+            <a href="https://www.seattletimes.com/life/food-drink/naan-n-curry-pakistani-flavors-from-a-family-run-affair-in-issaquah/" class="press-card fade-up" target="_blank">
+                <span class="press-source">The Seattle Times</span>
+                <h4>Pakistani Flavors From a Family-Run Affair in Issaquah</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://seattle.eater.com/maps/best-restaurants-bars-cafes-renton-washington" class="press-card fade-up" target="_blank">
+                <span class="press-source">Eater Seattle</span>
+                <h4>Best Restaurants, Bars, and Cafes in Renton</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://seattlespectator.com/2017/04/12/su-alumnus-expands-family-business-naan-n-curry/" class="press-card fade-up" target="_blank">
+                <span class="press-source">The Seattle Spectator</span>
+                <h4>SU Alumnus Expands Family Business Naan N Curry</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://nwasianweekly.com/2019/04/naan-n-curry-dishing-up-delicious-food-on-the-eastside/" class="press-card fade-up" target="_blank">
+                <span class="press-source">NW Asian Weekly</span>
+                <h4>Dishing Up Delicious Food on the Eastside</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://www.seattlemet.com/eat-and-drink/best-indian-food-in-seattle-bellevue-eastside" class="press-card fade-up" target="_blank">
+                <span class="press-source">Seattle Met</span>
+                <h4>The Best Indian Food in and Near Seattle and Bellevue</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://www.rentonreporter.com/2025/06/19/the-2025-best-of-renton-winners-are/" class="press-card fade-up" target="_blank">
+                <span class="press-source">Renton Reporter</span>
+                <h4>The 2025 Best of Renton Winners</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://www.king5.com/article/entertainment/television/programs/evening/naan-n-curry-is-rentons-hidden-gem-for-indian-and-pakistani-food/281-df107c5a-dfd4-482e-b605-9a22e4874e25" class="press-card fade-up" target="_blank">
+                <span class="press-source">KING 5 Evening</span>
+                <h4>Naan N Curry Is Renton's Hidden Gem for Indian and Pakistani Food</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://www.theinfatuation.com/seattle/guides/best-indian-restaurants-seattle" class="press-card fade-up" target="_blank">
+                <span class="press-source">The Infatuation</span>
+                <h4>The Best Indian Restaurants in Seattle</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+            <a href="https://www.theinfatuation.com/seattle/guides/best-restaurants-issaquah-washington" class="press-card fade-up" target="_blank">
+                <span class="press-source">The Infatuation</span>
+                <h4>The Best Restaurants in Issaquah</h4>
+                <span class="press-link">Read Article →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Ready to eat?</h2>
+    <p>Order online for pickup or delivery from either location.</p>
+    <div class="cta-buttons">
+        <a href="issaquah.html" class="btn btn-white">Order from Issaquah →</a>
+        <a href="renton.html" class="btn btn-white">Order from Renton →</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand-block">
+            <a href="index.html" class="nav-brand">
+                <img src="https://img1.wsimg.com/isteam/ip/381b31b3-6bc2-4d08-af6a-0be9b6abf117/Naan-n-Curry_1e.jpg/:/rs=h:200,cg:true,m/qt=q:95" alt="Naan N Curry">
+                <span class="nav-brand-text">Seattle</span>
+            </a>
+            <p>Pakistani &amp; North Indian cuisine, made from family recipes since 2005. Renton &amp; Issaquah, WA.</p>
+        </div>
+        <div class="footer-col">
+            <h5>Locations</h5>
+            <ul><li><a href="renton.html">Renton</a></li><li><a href="issaquah.html">Issaquah</a></li></ul>
+        </div>
+        <div class="footer-col">
+            <h5>Who We Are</h5>
+            <ul>
+                <li><a href="https://masscollective.co/" target="_blank">MASS Collective</a></li>
+                <li><a href="https://tspf.org" target="_blank">The Shared Plate Foundation</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>Follow Us</h5>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/naanncurry/" target="_blank" aria-label="Instagram">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@nncseattle?lang=en" target="_blank" aria-label="TikTok">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1 0-5.78 2.92 2.92 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.57 6.33 6.33 0 0 0 9.37 22a6.33 6.33 0 0 0 6.37-6.22V9.4a8.16 8.16 0 0 0 3.85.96V7.04a4.85 4.85 0 0 1-1-.35z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/nncissaquah/" target="_blank" aria-label="Facebook">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Naan N Curry. All rights reserved.</span>
+        <span>A MASS Collective brand</span>
+    </div>
+</footer>
+
+<script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
